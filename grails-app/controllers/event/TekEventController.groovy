@@ -2,7 +2,7 @@ package event
 
 class TekEventController {
 
-    def index() { }
+   // def index() { }
 
     def scaffold = TekEvent
 }
