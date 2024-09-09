@@ -6,8 +6,6 @@ class TekEventController {
 
     def scaffold = TekEvent
 
-
-
     def create() {
         def tekEventInstance = new TekEvent(params)
         // Only list volunteers excluding the organizer

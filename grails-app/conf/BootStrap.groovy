@@ -6,7 +6,7 @@ class BootStrap {
     def init = { servletContext ->
 
 
-        def eventOrganizer= new TekUser(fullName: 'John Doe',
+        def eventOrganizer = new TekUser(fullName: 'John Doe',
                 userName: 'jdoe',
                 password: 't0ps3cr3t',
                 email: 'jdoe@johnsgroovyshop.com',
@@ -14,7 +14,7 @@ class BootStrap {
                 bio: 'John has been programming for over 40 years. ...').save()
 
         def event1 = new TekEvent(name: 'C',
-                organizer:eventOrganizer,
+                organizer: eventOrganizer,
                 city: 'Saint Louis, MO',
                 venue: 'TBD',
                 startDate: new Date('11/21/2013'),

@@ -12,12 +12,12 @@ class TekEvent {
     String description
     TekUser organizer
 
-    static hasMany = [volunteers : TekUser, respondents : String]
+    static hasMany = [volunteers: TekUser, respondents: String]
 
     def beforeValidate() {
         removeOrganizerFromVolunteers()
     }
-    
+
     private void removeOrganizerFromVolunteers() {
         if (volunteers && organizer && volunteers.contains(organizer)) {
             volunteers.remove(organizer)
