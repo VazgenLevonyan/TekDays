@@ -1,5 +1,7 @@
 package user
 
+import event.TekEvent
+
 class TekUser {
 
     String fullName
@@ -8,6 +10,7 @@ class TekUser {
     String email
     String website
     String bio
+    TekEvent tekEvent
 
 
     String toString() { fullName }
@@ -16,6 +19,7 @@ class TekUser {
         fullName()
         userName()
         email()
+        tekEvent(nullable: true)
         website()
         bio maxSize:5000
     }

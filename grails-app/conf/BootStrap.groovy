@@ -37,8 +37,12 @@ coders ...''').save(flush: true)
                 startDate: new Date('11/2/2013'),
                 endDate: new Date('11/2/2013'),
                 description: 'Join the Perl programmers of the ...').save(flush: true)
-    }
 
+        tekUser1.tekEvent = TekEvent.findByName("C")
+        tekUser1.save(flush: true)
+        tekUser2.setTekEvent(TekEvent.findByName("D"))
+        tekUser2.save(flush: true)
+    }
     def destroy = {
     }
 }
