@@ -8,8 +8,9 @@ class TekUser {
     String email
     String website
     String bio
-    String toString() { fullName }
 
+
+    String toString() { fullName }
 
     static constraints = {
         fullName()
