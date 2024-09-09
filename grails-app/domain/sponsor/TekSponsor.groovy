@@ -6,6 +6,8 @@ class TekSponsor {
     String description
     byte[] logo
 
+    static hasMany = [sponsorships : TekSponsorship]
+
     String toString(){
         name
     }
@@ -15,5 +17,6 @@ class TekSponsor {
         website blank: false, url: true
         description nullable: true, maxSize: 5000
         logo nullable: true, maxSize: 1000000
+        sponsorships nullable: true
     }
 }

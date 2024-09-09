@@ -1,5 +1,8 @@
 package event
 
+import forum.TekMessage
+import sponsor.TekSponsorship
+import task.TekTask
 import user.TekUser
 
 class TekEvent {
@@ -12,7 +15,7 @@ class TekEvent {
     String description
     TekUser organizer
 
-    static hasMany = [volunteers: TekUser, respondents: String]
+    static hasMany = [volunteers: TekUser, respondents: String, sponsorships: TekSponsorship, tasks: TekTask, messages: TekMessage,]
 
     def beforeValidate() {
         removeOrganizerFromVolunteers()
@@ -33,6 +36,9 @@ class TekEvent {
         venue()
         startDate()
         endDate()
+        sponsorships nullable: true
+        tasks nullable: true
+        messages nullable: true
     }
 
     String toString() {

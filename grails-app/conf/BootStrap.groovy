@@ -1,5 +1,7 @@
 import event.TekEvent
 import user.TekUser
+import sponsor.TekSponsorship
+import sponsor.TekSponsor
 
 class BootStrap {
 
@@ -43,6 +45,33 @@ coders ...''').save(flush: true)
         event1.addToRespondents('zachary@linuxgurus.org')
         event1.addToRespondents('solomon@bootstrapwelding.com')
         event1.save(flush: true)
+
+
+
+        def s1 = new TekSponsor(name:'Contegix',
+
+                website:'http://www.contegix.com',
+                description:'Beyond Managed Hosting for your Enterprise').save()
+
+
+        def s2 = new TekSponsor(name:'Object Computing Incorporated',
+                website:'http://ociweb.com',
+                description:'An OO Software Engineering Company'
+        ).save()
+
+        def sp1 = new TekSponsorship(event:event1,
+                sponsor:s1,
+                contributionType:'Other',
+                description:'Cool T-Shirts').save()
+
+        def sp2 = new TekSponsorship(event:event1,
+                sponsor:s2,
+                contributionType:'Venue',
+                description:'Will be paying for the Moscone').save()
+
+
+
+
     }
     def destroy = {
     }
