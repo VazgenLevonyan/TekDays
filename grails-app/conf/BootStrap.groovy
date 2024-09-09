@@ -5,6 +5,24 @@ class BootStrap {
 
     def init = { servletContext ->
 
+
+        def eventOrganizer= new TekUser(fullName: 'John Doe',
+                userName: 'jdoe',
+                password: 't0ps3cr3t',
+                email: 'jdoe@johnsgroovyshop.com',
+                website: 'blog.johnsgroovyshop.com',
+                bio: 'John has been programming for over 40 years. ...').save()
+
+        def event1 = new TekEvent(name: 'C',
+                organizer:eventOrganizer,
+                city: 'Saint Louis, MO',
+                venue: 'TBD',
+                startDate: new Date('11/21/2013'),
+                endDate: new Date('11/21/2013'),
+                description: '''This conference will bring
+coders ...''').save(flush: true)
+
+
         def volunteer1 = new TekUser(fullName: 'A',
                 userName: 'jdoe',
                 password: 't0ps3cr3t',
@@ -19,25 +37,11 @@ class BootStrap {
                 website: 'www.perl.porkproducers.org',
                 bio: 'John is a top notch Perl programmer and a ...').save(flush: true)
 
-        def event1 = new TekEvent(name: 'C',
-
-                city: 'Saint Louis, MO',
-                venue: 'TBD',
-                startDate: new Date('11/21/2013'),
-                endDate: new Date('11/21/2013'),
-                description: '''This conference will bring
-coders ...''').save(flush: true)
-
-        def event2 = new TekEvent(name: 'D',
-
-                city: 'Austin, MN',
-                venue: 'SPAM Museum',
-                startDate: new Date('11/2/2013'),
-                endDate: new Date('11/2/2013'),
-                description: 'Join the Perl programmers of the ...').save(flush: true)
-
         event1.addToVolunteers(volunteer1)
         event1.addToVolunteers(volunteer2);
+        event1.addToRespondents('ben@grailsmail.com')
+        event1.addToRespondents('zachary@linuxgurus.org')
+        event1.addToRespondents('solomon@bootstrapwelding.com')
         event1.save(flush: true)
     }
     def destroy = {
