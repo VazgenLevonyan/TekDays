@@ -39,7 +39,6 @@ coders ...''').save(flush: true)
         event1.addToVolunteers(volunteer1)
         event1.addToVolunteers(volunteer2);
         event1.save(flush: true)
-
     }
     def destroy = {
     }
