@@ -15,4 +15,12 @@ class TekSponsorship {
             description nullable: true, blank: true
             notes nullable: true, blank: true, maxSize: 5000
         }
+
+    @Override
+    public String toString() {
+        return "TekSponsorship{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                '}';
     }
+}
