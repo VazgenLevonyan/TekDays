@@ -2,9 +2,10 @@ dataSource {
     pooled = true
     jmxExport = true
     driverClassName = "org.mariadb.jdbc.Driver"
-    username = "root"
-    password = "18733375"
+    username = "rootlll"
+    password = "1873337588"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -20,7 +21,7 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mariadb://localhost:3306/databaza"
+            url = "jdbc:mariadb://localhost:3306/tekDays"
         }
     }
     test {

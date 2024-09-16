@@ -47,23 +47,51 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'startDate', 'error')} required">
+%{--<div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'startDate', 'error')} required">--}%
+%{--	<label for="startDate">--}%
+%{--		<g:message code="tekEvent.startDate.label" default="Start Date" />--}%
+%{--		<span class="required-indicator">*</span>--}%
+%{--	</label>--}%
+%{--	<g:datePicker name="startDate" precision="day"  value="${tekEventInstance?.startDate}"  />--}%
+
+%{--</div>--}%
+
+<div class="fieldcontain ${hasErrors(bean: tekEventInstance,
+		field: 'startDate',
+		'error')} required">
 	<label for="startDate">
 		<g:message code="tekEvent.startDate.label" default="Start Date" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:datePicker name="startDate" precision="day"  value="${tekEventInstance?.startDate}"  />
 
+	➤ <g:datePicker name="startDate" precision="day"
+					➤ value="${tekEventInstance?.startDate}" years="${2008..2015}" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'endDate', 'error')} required">
+
+
+%{--<div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'endDate', 'error')} required">--}%
+%{--	<label for="endDate">--}%
+%{--		<g:message code="tekEvent.endDate.label" default="End Date" />--}%
+%{--		<span class="required-indicator">*</span>--}%
+%{--	</label>--}%
+%{--	<g:datePicker name="endDate" precision="day"  value="${tekEventInstance?.endDate}"  />--}%
+
+%{--</div>--}%
+
+
+<div class="fieldcontain ${hasErrors(bean: tekEventInstance,
+		field: 'endDate',
+		'error')} required">
 	<label for="endDate">
 		<g:message code="tekEvent.endDate.label" default="End Date" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:datePicker name="endDate" precision="day"  value="${tekEventInstance?.endDate}"  />
 
+	➤ <g:datePicker name="endDate" precision="day"
+					➤ value="${tekEventInstance?.endDate}" years="${2008..2015}" />
 </div>
+
 
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'sponsorships', 'error')} ">
 	<label for="sponsorships">

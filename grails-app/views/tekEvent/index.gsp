@@ -30,7 +30,7 @@
 					
 						<g:sortableColumn property="description" title="${message(code: 'tekEvent.description.label', default: 'Description')}" />
 					
-						<th><g:message code="tekEvent.organizer.label" default="Organizer" /></th>
+%{--						<th><g:message code="tekEvent.organizer.label" default="Organizer" /></th>--}%
 					
 						<g:sortableColumn property="venue" title="${message(code: 'tekEvent.venue.label', default: 'Venue')}" />
 					
@@ -48,7 +48,7 @@
 					
 						<td>${fieldValue(bean: tekEventInstance, field: "description")}</td>
 					
-						<td>${fieldValue(bean: tekEventInstance, field: "organizer")}</td>
+%{--						<td>${fieldValue(bean: tekEventInstance, field: "organizer")}</td>--}%
 					
 						<td>${fieldValue(bean: tekEventInstance, field: "venue")}</td>
 					
