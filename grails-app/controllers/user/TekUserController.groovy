@@ -1,6 +1,7 @@
 package user
 
-
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -9,13 +10,16 @@ import grails.transaction.Transactional
 class TekUserController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    private static final Logger LOG = LoggerFactory.getLogger(TekUserController)
 
     def index(Integer max) {
+        LOG.info("Debug log in TekUserController  --index action")
         params.max = Math.min(max ?: 10, 100)
         respond TekUser.list(params), model:[tekUserInstanceCount: TekUser.count()]
     }
 
     def show(TekUser tekUserInstance) {
+        LOG.info("Debug log in TekUserController  --show action")
         respond tekUserInstance
     }
 

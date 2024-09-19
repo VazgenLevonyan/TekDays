@@ -1,5 +1,7 @@
 package sponsorship
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import sponsor.TekSponsorship
 
 import static org.springframework.http.HttpStatus.*
@@ -9,13 +11,16 @@ import grails.transaction.Transactional
 class TekSponsorshipController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    private static final Logger LOG = LoggerFactory.getLogger(TekSponsorshipController)
 
     def index(Integer max) {
+        LOG.trace("Trace log in TekSponsorshipController  --index action")
         params.max = Math.min(max ?: 10, 100)
         respond TekSponsorship.list(params), model:[tekSponsorshipInstanceCount: TekSponsorship.count()]
     }
 
     def show(TekSponsorship tekSponsorshipInstance) {
+        LOG.trace("Trace log in TekSponsorship  --show action")
         respond tekSponsorshipInstance
     }
 
