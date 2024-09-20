@@ -19,7 +19,7 @@
 	<body>
 	<div id="logo" role="banner"><a href="${createLink(uri: '/')}">
 		<img src="${resource(dir: 'images', file: 'tekDays.jpg')}"
-			 alt="TekDays"/></a></div>
+			 alt="TekDays" width="100%"/></a></div>
 
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>

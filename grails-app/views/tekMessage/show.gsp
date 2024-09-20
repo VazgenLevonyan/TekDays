@@ -63,7 +63,7 @@
 				<li class="fieldcontain">
 					<span id="event-label" class="property-label"><g:message code="tekMessage.event.label" default="Event" /></span>
 					
-						<span class="property-value" aria-labelledby="event-label"><g:link controller="tekEvent" action="show" id="${tekMessageInstance?.event?.id}">${tekMessageInstance?.event?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="event-label"><g:link controller="w" action="show" id="${tekMessageInstance?.event?.id}">${tekMessageInstance?.event?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
