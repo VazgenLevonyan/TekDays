@@ -38,24 +38,13 @@
             </li>
         </g:if>
 
-
-
-    %{--				<g:if test="${tekEventInstance?.city}">--}%
-    %{--				<li class="fieldcontain">--}%
-    %{--					<span id="city-label" class="property-label"><g:message code="tekEvent.city.label" default="City" /></span>--}%
-
-    %{--						<span class="property-value" aria-labelledby="city-label"><g:fieldValue bean="${tekEventInstance}" field="city"/></span>--}%
-
-    %{--				</li>--}%
-    %{--				</g:if>--}%
-
         <g:if test="${tekEventInstance?.city}">
             <li class="fieldcontain">
-                 <span id="city-label" class="property-label">
-            </span> Location
+                <span id="city-label" class="property-label">
+                </span> Location
                 <span class="property-value" aria-labelledby="city-label">
-                     <g:fieldValue bean="${tekEventInstance}" field="venue"/>,
-                     <g:fieldValue bean="${tekEventInstance}" field="city"/>
+                    <g:fieldValue bean="${tekEventInstance}" field="venue"/>,
+                    <g:fieldValue bean="${tekEventInstance}" field="city"/>
                 </span>
             </li>
         </g:if>
@@ -94,59 +83,25 @@
             </li>
         </g:if>
 
-    %{--				<g:if test="${tekEventInstance?.startDate}">--}%
-    %{--				<li class="fieldcontain">--}%
-    %{--					<span id="startDate-label" class="property-label"><g:message code="tekEvent.startDate.label" default="Start Date" /></span>--}%
-    %{--					--}%
-    %{--						<span class="property-value" aria-labelledby="startDate-label"><g:formatDate date="${tekEventInstance?.startDate}" /></span>--}%
-    %{--					--}%
-    %{--				</li>--}%
-    %{--				</g:if>--}%
-
-
         <g:if test="${tekEventInstance?.startDate}">
             <li class="fieldcontain">
                 <span id="startDate-label" class="property-label"><g:message
                         code="tekEvent.startDate.label" default="Start Date"/></span>
                 <span class="property-value" aria-labelledby="startDate-label">
-                     <g:formatDate format="MMMM dd, yyyy"
-                                    ➤ date="${tekEventInstance?.startDate}"/></span>
+                    <g:formatDate format="MMMM dd, yyyy"
+                                  ➤ date="${tekEventInstance?.startDate}"/></span>
             </li>
         </g:if>
-
-    %{--				<g:if test="${tekEventInstance?.endDate}">--}%
-    %{--				<li class="fieldcontain">--}%
-    %{--					<span id="endDate-label" class="property-label"><g:message code="tekEvent.endDate.label" default="End Date" /></span>--}%
-    %{--					--}%
-    %{--						<span class="property-value" aria-labelledby="endDate-label"><g:formatDate date="${tekEventInstance?.endDate}" /></span>--}%
-    %{--					--}%
-    %{--				</li>--}%
-    %{--				</g:if>--}%
-
 
         <g:if test="${tekEventInstance?.endDate}">
             <li class="fieldcontain">
                 <span id="endDate-label" class="property-label"><g:message
                         code="tekEvent.endDate.label" default="End Date"/></span>
                 <span class="property-value" aria-labelledby="endDate-label">
-                     <g:formatDate format="MMMM dd, yyyy"
-                                    ➤ date="${tekEventInstance?.endDate}"/></span>
+                    <g:formatDate format="MMMM dd, yyyy"
+                                  ➤ date="${tekEventInstance?.endDate}"/></span>
             </li>
         </g:if>
-
-
-
-    %{--				<g:if test="${tekEventInstance?.sponsorships}">--}%
-    %{--				<li class="fieldcontain">--}%
-    %{--					<span id="sponsorships-label" class="property-label"><g:message code="tekEvent.sponsorships.label" default="Sponsorships" /></span>--}%
-    %{--					--}%
-    %{--						<g:each in="${tekEventInstance.sponsorships}" var="s">--}%
-    %{--						<span class="property-value" aria-labelledby="sponsorships-label"><g:link controller="tekSponsorship" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>--}%
-    %{--						</g:each>--}%
-    %{--					--}%
-    %{--				</li>--}%
-    %{--				</g:if>--}%
-
 
         <g:if test="${tekEventInstance?.sponsorships}">
             <li class="fieldcontain">
@@ -176,15 +131,13 @@
 
         <g:if test="${tekEventInstance?.messages}">
             <li class="fieldcontain">
-                <span id="messages-label" class="property-label"><g:message code="tekEvent.messages.label"
-                                                                            default="Messages"/></span>
-
-                <g:each in="${tekEventInstance.messages}" var="m">
-                    <span class="property-value" aria-labelledby="messages-label"><g:link controller="tekMessage"
-                                                                                          action="show"
-                                                                                          id="${m.id}">${m?.encodeAsHTML()}</g:link></span>
-                </g:each>
-
+                <span id="messages-label" class="property-label"><g:message
+                        code="tekEvent.messages.label" default="Messages"/></span>
+                <span class="property-value" aria-labelledby="messages-label">
+                    <g:link controller="tekMessage" action="index"
+                            id="${tekEventInstance.id}">
+                        View Messages
+                    </g:link></span>
             </li>
         </g:if>
 
