@@ -1,12 +1,12 @@
-dataSource {
-    pooled = true
-    jmxExport = true
-    driverClassName = "org.mariadb.jdbc.Driver"
-    username = "rootlll"
-    password = "1873337588"
-    dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-
-}
+//dataSource {
+//    pooled = true
+//    jmxExport = true
+//    driverClassName = "org.mariadb.jdbc.Driver"
+//    username = "rootlll"
+//    password = "1873337588"
+//    dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+//
+//}
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
