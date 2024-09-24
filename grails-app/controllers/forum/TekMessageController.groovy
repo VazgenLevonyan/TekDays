@@ -34,8 +34,6 @@ class TekMessageController {
     }
 
     def create() {
-        def tekEventInstance = TekEvent.read(params["event.id"])
-        params.event = tekEventInstance
         respond new TekMessage(params)
     }
 
@@ -51,6 +49,9 @@ class TekMessageController {
             respond tekMessageInstance.errors, view:'create'
             return
         }
+
+        def event = TekEvent.get(params["event"])
+        tekMessageInstance.setEvent(event)
 
         tekMessageInstance.save flush:true
 

@@ -11,6 +11,8 @@
 	</div>
 </g:if>
 
+<g:hiddenField name="event" value="${params?.event}" />
+
 <div class="fieldcontain ${hasErrors(bean: tekMessageInstance,
 		field: 'subject', 'error')} required">
 	<label for="subject">
@@ -38,3 +40,5 @@
 	<g:select id="author" name="author.id" from="${user.TekUser.list()}" optionKey="id" required="" value="${tekMessageInstance?.author?.id}" class="many-to-one"/>
 
 </div>
+
+

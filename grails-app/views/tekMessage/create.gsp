@@ -15,6 +15,7 @@
 							code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
+
 		<div id="create-tekMessage" class="content scaffold-create" role="main">
 			<h1>${tekMessageInstance?.event?.name} Forum - New Message</h1>
 			<g:if test="${flash.message}">
