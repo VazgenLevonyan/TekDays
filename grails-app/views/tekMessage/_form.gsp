@@ -2,8 +2,10 @@
 
 
 <g:if test="${tekMessageInstance?.parent}">
+	 <input type="hidden" name="parent.id"
+			  value="${tekMessageInstance?.parent?.id}" />
 	<div class="fieldcontain ${hasErrors(bean: tekMessageInstance,
-			field: 'parent', 'error')} ">
+		field: 'parent', 'error')} ">
 		<label for="parent">
 			In Reply to:
 		</label>
