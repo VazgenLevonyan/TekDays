@@ -18,13 +18,14 @@
 	</head>
 	<body>
 	<div id="logo" role="banner"><a href="${createLink(uri: '/')}">
-%{--		<img src="${resource(dir: 'images', file: 'tekDays.jpg')}"--}%
-		<img src="${resource(dir: 'images', file: 'tekDays.jpg')}" style="width: 100%;" />
-
-		alt="TekDays"/></a></div>
+		<img src="${resource(dir: 'images', file: 'tekDays.jpg')}"
+			 alt="TekDays" width="100%"/></a>
+		<g:loginToggle />
+	</div>
 
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+
 	</body>
 </html>
