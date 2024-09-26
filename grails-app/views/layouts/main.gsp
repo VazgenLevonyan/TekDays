@@ -18,8 +18,10 @@
 	</head>
 	<body>
 	<div id="logo" role="banner"><a href="${createLink(uri: '/')}">
-		<img src="${resource(dir: 'images', file: 'tekDays.jpg')}"
-			 alt="TekDays"/></a></div>
+%{--		<img src="${resource(dir: 'images', file: 'tekDays.jpg')}"--}%
+		<img src="${resource(dir: 'images', file: 'tekDays.jpg')}" style="width: 100%;" />
+
+		alt="TekDays"/></a></div>
 
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
