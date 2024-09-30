@@ -132,7 +132,6 @@
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'messages', 'error')} ">
 	<label for="messages">
 		<g:message code="tekEvent.messages.label" default="Messages" />
-		
 	</label>
 	
 <ul class="one-to-many">
@@ -148,7 +147,6 @@
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'respondents', 'error')} ">
 	<label for="respondents">
 		<g:message code="tekEvent.respondents.label" default="Respondents" />
-		
 	</label>
 	
 
