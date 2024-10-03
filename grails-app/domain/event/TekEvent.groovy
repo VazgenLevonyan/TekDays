@@ -14,6 +14,7 @@ class TekEvent {
     Date endDate
     String description
     TekUser organizer
+    String nickname
 
     static hasMany = [volunteers: TekUser, respondents: String, sponsorships: TekSponsorship, tasks: TekTask, messages: TekMessage,]
 
@@ -39,6 +40,7 @@ class TekEvent {
         sponsorships nullable: true
         tasks nullable: true
         messages nullable: true
+        nickname nullable: true
     }
 
     String toString() {
