@@ -2,6 +2,7 @@ package event
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import user.TekUser
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -20,19 +21,27 @@ class TekEventController {
         respond TekEvent.list(params), model: [tekEventInstanceCount: TekEvent.count()]
     }
 
+    def volunteer = {
+        def event = TekEvent.get(params.id)
+        def user = session.user;
+        event.addToVolunteers(user)
+        event.save()
+        user.setTekEvent(event)
+        user.save(flush:true)
+        render "Thank you for Volunteering"
+    }
+
     def show(Long id) {
         def tekEventInstance
-        if(params.nickname){
+        if (params.nickname) {
             tekEventInstance = TekEvent.findByNickname(params.nickname)
-        }
-        else {
+        } else {
             tekEventInstance = TekEvent.get(id)
         }
         if (!tekEventInstance) {
-            if(params.nickname){
+            if (params.nickname) {
                 flash.message = "TekEvent not found with nickname ${params.nickname}"
-            }
-            else {
+            } else {
                 flash.message = "TekEvent not found with id $id"
             }
             redirect(action: "list")
@@ -40,6 +49,7 @@ class TekEventController {
         }
         [tekEventInstance: tekEventInstance]
     }
+
     def create() {
         respond new TekEvent(params)
     }
