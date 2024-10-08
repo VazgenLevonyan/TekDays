@@ -1,5 +1,8 @@
 package sponsor
 
+import org.hibernate.envers.Audited
+
+@Audited
 class TekSponsor {
     String name
     String website

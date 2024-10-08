@@ -1,7 +1,9 @@
 package user
 
 import event.TekEvent
+import org.hibernate.envers.Audited
 
+@Audited
 class TekUser {
 
     String fullName

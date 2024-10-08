@@ -4,8 +4,8 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'tekEvent.label', default: 'TekEvent')}"/>
-    <g:javascript library="jquery" />
-    <r:require module="jquery-ui" />
+%{--    <g:javascript library="jquery" />--}%
+%{--    <g:require module="jquery-ui" />--}%
     <title><g:message code="default.show.label" args="[entityName]"/></title>
 </head>
 

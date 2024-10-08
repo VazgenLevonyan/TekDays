@@ -1,6 +1,8 @@
 package sponsor
 import event.TekEvent
+import org.hibernate.envers.Audited
 
+@Audited
 class TekSponsorship {
 
         TekEvent event

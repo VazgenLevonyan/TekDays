@@ -1,10 +1,13 @@
 package event
 
 import forum.TekMessage
+import org.hibernate.envers.Audited
+import org.hibernate.envers.NotAudited
 import sponsor.TekSponsorship
 import task.TekTask
 import user.TekUser
 
+@Audited
 class TekEvent {
 
     String city
@@ -16,7 +19,7 @@ class TekEvent {
     TekUser organizer
     String nickname
 
-    static hasMany = [volunteers: TekUser, respondents: String, sponsorships: TekSponsorship, tasks: TekTask, messages: TekMessage,]
+    static hasMany = [ volunteers: TekUser, respondents: String, sponsorships: TekSponsorship, tasks: TekTask, messages: TekMessage,]
 
     def beforeValidate() {
         removeOrganizerFromVolunteers()

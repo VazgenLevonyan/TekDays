@@ -21,15 +21,23 @@ class TekEventController {
         respond TekEvent.list(params), model: [tekEventInstanceCount: TekEvent.count()]
     }
 
-    def volunteer = {
+    @Transactional
+    def volunteer() {
         def event = TekEvent.get(params.id)
-        def user = session.user;
-        event.addToVolunteers(user)
-        event.save()
-        user.setTekEvent(event)
-        user.save(flush:true)
-        render "Thank you for Volunteering"
+        def user = session.user
+        if (event && user) {
+            event.addToVolunteers(user)
+            event.save(flush: true)
+
+            user.setTekEvent(event)
+            user.save(flush: true)
+
+            render "Thank you for Volunteering"
+        } else {
+            render(status: 404, text: "Event or User not found")
+        }
     }
+
 
     def show(Long id) {
         def tekEventInstance

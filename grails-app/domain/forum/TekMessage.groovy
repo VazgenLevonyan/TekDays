@@ -1,8 +1,10 @@
 package forum
 
 import event.TekEvent
+import org.hibernate.envers.Audited
 import user.TekUser
 
+@Audited
 class TekMessage {
 
         String subject

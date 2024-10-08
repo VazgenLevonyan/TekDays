@@ -83,7 +83,7 @@ class TekDaysTagLib {
 
     def volunteerButton = {attrs ->
         if (request.getSession(false) && session.user){
-            def user = session.user.merge()
+            def user = session.user
             def event = TekEvent.get(attrs.eventId)
             if (event && !event.volunteers.contains(user)){
                 out << "<span id='volunteerSpan' class='menuButton'>"

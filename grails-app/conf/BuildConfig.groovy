@@ -51,6 +51,9 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
         compile 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
+        compile('org.hibernate:hibernate-envers:4.3.11.Final') {
+            transitive = false
+        }
     }
 
     plugins {

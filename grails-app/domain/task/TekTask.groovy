@@ -1,8 +1,10 @@
 package task
 
 import event.TekEvent
+import org.hibernate.envers.Audited
 import user.TekUser
 
+@Audited
 class TekTask {
     String title
     String notes
