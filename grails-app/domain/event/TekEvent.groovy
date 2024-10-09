@@ -21,6 +21,13 @@ class TekEvent {
 
     static hasMany = [ volunteers: TekUser, respondents: String, sponsorships: TekSponsorship, tasks: TekTask, messages: TekMessage,]
 
+    static  mapping = {
+        tasks cascade: 'all-delete-orphan'
+        messages cascade: 'all-delete-orphan'
+        volunteers cascade: 'all-delete-orphan'
+        respondents cascade: 'all-delete-orphan'
+    }
+
     def beforeValidate() {
         removeOrganizerFromVolunteers()
     }

@@ -116,18 +116,35 @@ class TekEventController {
     }
 
     @Transactional
-    def delete(TekEvent tekEventInstance) {
+    def delete(TekEvent tekEvent) {
 
-        if (tekEventInstance == null) {
+        if (tekEvent == null) {
             notFound()
             return
         }
 
-        tekEventInstance.delete flush: true
+        if (tekEvent.volunteers.contains(tekEvent.organizer)) {
+            tekEvent.volunteers.remove(tekEvent.organizer)
+        }
+
+        tekEvent.organizer = null
+
+
+
+        try {
+            // Save changes to the TekEvent before deletion
+            tekEvent.save(flush: true)
+
+            // Delete the TekEvent
+            tekEvent.delete(flush: true)
+        }
+        catch (Exception e){
+            flash.message = "Error occurred while deleting TekEvent: ${e.message}"
+        }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'TekEvent.label', default: 'TekEvent'), tekEventInstance.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'TekEvent.label', default: 'TekEvent'), tekEvent.id])
                 redirect action: "index", method: "GET"
             }
             '*' { render status: NO_CONTENT }

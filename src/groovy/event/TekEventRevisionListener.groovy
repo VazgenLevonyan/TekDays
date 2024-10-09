@@ -14,6 +14,5 @@ class TekEventRevisionListener implements RevisionListener {
         def session = WebUtils.retrieveGrailsWebRequest().session
         TekUser user = session.user
         revisionEntity.currentUser = user
-
     }
 }
