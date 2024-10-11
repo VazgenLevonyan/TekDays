@@ -19,6 +19,9 @@ class TekEvent {
     TekUser organizer
     String nickname
 
+    Date dateCreated
+    Date lastUpdated
+
     static hasMany = [ volunteers: TekUser, respondents: String, sponsorships: TekSponsorship, tasks: TekTask, messages: TekMessage,]
 
     static  mapping = {

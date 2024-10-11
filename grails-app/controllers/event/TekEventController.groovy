@@ -1,14 +1,37 @@
 package event
 
+import org.hibernate.envers.query.AuditQuery
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import user.TekUser
+import org.hibernate.envers.AuditReaderFactory
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TekEventController {
+
+    def datatablesSourceService
+
+    def dtList() {
+        println 1
+        [tekEventId: params.id]
+    }
+
+    def dataTablesRenderer() {
+        def propertiesToRender = ["id","name","description", "city", "organizer","changedBy","timestamp"] //<list of fields to be rendered>
+        def entityName = 'TekEvent'
+        render  datatablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
+    }
+
+    def revision(){
+        def propertiesToRender = ["id","name", "description", "city"]
+        def tekEventId=Long.valueOf(params.id)
+
+        def result=datatablesSourceService.getRevisions(tekEventId,propertiesToRender,params)
+        def data=["tekEventId": tekEventId, "result": result]
+        [data: data]
+    }
 
     private static final Logger LOG = LoggerFactory.getLogger(TekEventController)
     def taskService
