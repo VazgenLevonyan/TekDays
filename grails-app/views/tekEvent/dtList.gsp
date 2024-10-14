@@ -20,7 +20,7 @@
             stateSave: true,
             aoColumnDefs: [
 
-                  { "orderable": true, "targets": [0, 1, 2, 3, 4, 5] },
+                  { "orderable": true,"bSearchable":true, "targets": [0, 1, 2, 3, 4, 5] },
 
                 {
                 createdCell: function (td, cellData, rowData, row, col) {
@@ -81,9 +81,6 @@
         <th>City</th>
         <th>ChangedBy</th>
         <th>TimeStamp</th>
-
-
-
 
     </tr>
     </thead>

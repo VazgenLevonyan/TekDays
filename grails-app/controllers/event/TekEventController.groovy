@@ -30,8 +30,6 @@ class TekEventController {
 
         def result=datatablesSourceService.getRevisions(tekEventId,propertiesToRender,params)
         render result
-//        def data=["tekEventId": tekEventId, "result": result]
-//        [data: data]
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(TekEventController)
