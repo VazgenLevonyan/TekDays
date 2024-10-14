@@ -10,11 +10,11 @@
             sScrollX: "100%",
             bProcessing: true,
             bServerSide: true,
-            sAjaxSource: "/TekDays/tekEvent/dataTablesRenderer/${tekEventId}",
+            sAjaxSource: "/TekDays/tekEvent/revision/${tekEventId}",
             bJQueryUI: false,
             bAutoWidth: false,
             sPaginationType: "full_numbers",
-            aLengthMenu: [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
+            aLengthMenu: [[5,10, 25, 50, 100, 200], [5,10, 25, 50, 100, 200]],
             iDisplayLength: 5,
             aoColumnDefs: [
                 {
@@ -44,25 +44,19 @@
                     aTargets: [3]
                 },
 
-                // {
-                //     createdCell: function (td, cellData, rowData, row, col) {
-                //         $(td).attr('style', 'text-align: center;');
-                //     },
-                //     aTargets: [4]
-                // },
-                //
-                // {
-                //     createdCell: function (td, cellData, rowData, row, col) {
-                //         $(td).attr('style', 'text-align: center;');
-                //     },
-                //     aTargets: [5]
-                // },
-                //     {
-                //     createdCell: function (td, cellData, rowData, row, col) {
-                //         $(td).attr('style', 'text-align: center;');
-                //     },
-                //     aTargets: [6]
-                // }
+                {
+                    createdCell: function (td, cellData, rowData, row, col) {
+                        $(td).attr('style', 'text-align: center;');
+                    },
+                    aTargets: [4]
+                },
+
+                {
+                    createdCell: function (td, cellData, rowData, row, col) {
+                        $(td).attr('style', 'text-align: center;');
+                    },
+                    aTargets: [5]
+                }
 
             ]
         });
@@ -80,9 +74,8 @@
         <th>Name</th>
         <th>Description</th>
         <th>City</th>
-%{--        <th>Organizer</th>--}%
-%{--        <th>ChangedBy</th>--}%
-%{--        <th>TimeStamp</th>--}%
+        <th>ChangedBy</th>
+        <th>TimeStamp</th>
 
 
 

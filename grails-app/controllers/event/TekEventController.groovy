@@ -19,18 +19,19 @@ class TekEventController {
     }
 
     def dataTablesRenderer() {
-        def propertiesToRender = ["id","name","description", "city", "organizer","changedBy","timestamp"] //<list of fields to be rendered>
+        def propertiesToRender = ["id","name","description", "city", "organizer"] //<list of fields to be rendered>
         def entityName = 'TekEvent'
         render  datatablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
     }
 
     def revision(){
-        def propertiesToRender = ["id","name", "description", "city"]
+        def propertiesToRender = ["id","name", "description", "city","currentUser","timestamp"]
         def tekEventId=Long.valueOf(params.id)
 
         def result=datatablesSourceService.getRevisions(tekEventId,propertiesToRender,params)
-        def data=["tekEventId": tekEventId, "result": result]
-        [data: data]
+        render result
+//        def data=["tekEventId": tekEventId, "result": result]
+//        [data: data]
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(TekEventController)
