@@ -16,7 +16,12 @@
             sPaginationType: "full_numbers",
             aLengthMenu: [[5,10, 25, 50, 100, 200], [5,10, 25, 50, 100, 200]],
             iDisplayLength: 5,
+            order: [],
+            stateSave: true,
             aoColumnDefs: [
+
+                  { "orderable": true, "targets": [0, 1, 2, 3, 4, 5] },
+
                 {
                 createdCell: function (td, cellData, rowData, row, col) {
                     $(td).attr('style', 'color:red;');

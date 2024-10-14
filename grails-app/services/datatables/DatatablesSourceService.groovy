@@ -7,6 +7,10 @@ import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.plugins.support.aware.GrailsApplicationAware
 import org.hibernate.SessionFactory
 import org.hibernate.envers.AuditReaderFactory
+import java.time.Instant
+import java.time.ZoneId
+import java.time.LocalDate
+
 
 import javax.sql.DataSource
 
@@ -108,9 +112,6 @@ class DatatablesSourceService implements GrailsApplicationAware {
     }
 
 
-
-
-
     def getRevisions(def tekEventId, List propertiesToRender, Map params) {
 
         def dataToRender = [:]
@@ -134,25 +135,77 @@ class DatatablesSourceService implements GrailsApplicationAware {
         // Total records count (before pagination)
         dataToRender.iTotalRecords = filteredList.size()
 
-        // Paginate the filtered list based on displayStart and displayLength
+
+
+        if (params.iSortCol_0) {
+            int sortColumnIndex = params.iSortCol_0.toInteger()
+            String sortDirection = params.sSortDir_0 ?: "asc"
+
+            filteredList.sort { a, b ->
+                def propertyName = propertiesToRender[sortColumnIndex]
+                def valueA, valueB
+
+                if (a[0].hasProperty(propertyName)) {
+                    valueA = a[0].getAt(propertyName)
+                } else if (a[1].hasProperty(propertyName)) {
+                    valueA = a[1].getAt(propertyName)
+                }
+
+                if (b[0].hasProperty(propertyName)) {
+                    valueB = b[0].getAt(propertyName)
+                } else if (b[1].hasProperty(propertyName)) {
+                    valueB = b[1].getAt(propertyName)
+                }
+
+                if (propertyName == 'currentUser') {
+                    valueA = valueA?.fullName?.toString() ?: ""
+                    valueB = valueB?.fullName?.toString() ?: ""
+                }
+
+                if (sortDirection == "asc") {
+                    valueA <=> valueB
+                } else {
+                    valueB <=> valueA
+                }
+            }
+        }
+
         List paginatedList = filteredList.subList(displayStart, Math.min(displayStart + displayLength, filteredList.size()))
 
-        // Process paginated data
         paginatedList.each { subList ->
             def tekEvent = subList[0]
             def tekEventRevision = subList[1]
             def data = []
 
+
             propertiesToRender.each { f ->
                 try {
-                    // Dynamically access the property of tekEvent or tekEventRevision
-                    def value = tekEvent.hasProperty(f) ? tekEvent[f] : tekEventRevision[f]
+                    def value
+                    if (tekEvent.hasProperty(f)) {
+                        value = tekEvent[f]
+                    } else if (tekEventRevision.hasProperty(f)) {
+                        value = tekEventRevision[f]
 
-                    if (value instanceof Long) {
-                        data.add(value.toString())  // Convert Long to String
-                    } else {
-                        data.add(value?.toString()) // Convert other types to String, if not null
+                        // Special handling for the 'currentUser' relationship
+                        if (f == 'currentUser' && value) {
+                            // Assuming currentUser is a string or can be cast to a string
+                            value = value ?: 'Unknown User'
+                        }
+
+                        // Special handling for 'timestamp' field: convert to LocalDate format
+                        if (f == 'timestamp' && value) {
+                            if (value instanceof Long) {
+                                value = Instant.ofEpochMilli(value)
+                                        .atZone(ZoneId.systemDefault())
+                                        .toLocalDate()
+                                        .toString()
+                            } else {
+                                value = value.toString()
+                            }
+                        }
                     }
+
+                    data.add(value?.toString() ?: "N/A")
                 } catch (MissingPropertyException e) {
                     println("Property '${f}' not found in either tekEvent or tekEventRevision")
                     data.add("N/A")  // Add a placeholder if the property is missing
@@ -160,77 +213,10 @@ class DatatablesSourceService implements GrailsApplicationAware {
             }
             dataToRender.aaData << data
         }
-
-        // Set the total number of records after filtering (for pagination)
         dataToRender.iTotalDisplayRecords = filteredList.size()
-
         return dataToRender as JSON
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    def getRevisions(def tekEventId, propertiesToRender, params) {
-//
-//        def dataToRender = [:]
-//        dataToRender.sEcho = 1
-//        dataToRender.aaData = []
-//
-//        List listOfAudited = AuditReaderFactory
-//                .get(sessionFactory.currentSession)
-//                .createQuery()
-//                .forRevisionsOfEntity(TekEvent.class, false, true).getResultList()
-//
-//        listOfAudited.each { subList ->
-//            def tekEvent = subList[0]
-//
-//            if (tekEvent.id != tekEventId) {
-//                return
-//            }
-//
-//            def tekEventRevision = subList[1]
-//            def data = []
-//
-//            propertiesToRender.each { f ->
-//                try {
-//                    def value = tekEvent.hasProperty(f) ? tekEvent[f] : tekEventRevision[f]
-//
-//                    if (value instanceof Long) {
-//                        data.add(value.toString())
-//                    } else {
-//                        data.add(value?.toString())
-//                    }
-//                } catch (MissingPropertyException e) {
-//                    println("Property '${f}' not found in either tekEvent or tekEventRevision")
-//                    data.add("N/A")
-//                }
-//            }
-//            dataToRender.aaData << data
-//        }
-//            return dataToRender as JSON
-//
-//        }
-
-
-
-    }
+}
 
 
 
@@ -264,36 +250,3 @@ class DatatablesSourceService implements GrailsApplicationAware {
 
 
 
-
-
-//        def auditQueryCreator = AuditReaderFactory.get(sessionFactory.currentSession).createQuery()
-//        def revisionList = []
-//        AuditQuery query = auditQueryCreator.forRevisionsOfEntity(TekEvent.class, true, true)
-//        query.resultList.each { result->
-//           def tekEvent= result[0];
-//           def revision = result[1];
-//            if(tekEvent.id==tekEventId) {
-//                revisionList.add(revision)
-//            }
-//        }
-
-//        [revisionList: revisionList]
-    //}
-//
-//    def getAudit(id)
-//    {
-//        def sql = new Sql(dataSource)
-//        String query = "select a.name, a.description, a.city, a.date_created,a.last_updated, r.current_user_id as changedBy\n" +
-//                "FROM\n" +
-//                "    audited_tek_event as a\n" +
-//                "        join \n" +
-//                "    tek_event_revision_entity as r on r.id = a.rev\n" +
-//                "        join \n" +
-//                "    tek_event as dt on dt.id = a.id\n" +
-//                "where \n" +
-//                "    dt.id =${id}"
-//        def result = sql.rows(query)
-//        sql.close()
-//        return result
-//    }
-//}
