@@ -122,6 +122,9 @@ class DatatablesSourceService implements GrailsApplicationAware {
         int displayStart = params.iDisplayStart?.toInteger() ?: 0   // Start index
         int displayLength = params.iDisplayLength?.toInteger() ?: 10 // Page length (number of records per page)
 
+        // Search value from DataTables
+        String searchValue = params.sSearch?.trim() ?: ""
+
         // Get all audit data for TekEvent class
         List listOfAudited = AuditReaderFactory
                 .get(sessionFactory.currentSession)
@@ -132,14 +135,19 @@ class DatatablesSourceService implements GrailsApplicationAware {
         // Filter by tekEventId
         List filteredList = listOfAudited.findAll { it[0].id == tekEventId }
 
+        // Apply search filtering if searchValue is provided
+        if (searchValue) {
+            filteredList = filteredList.findAll { auditRow ->
+                TekEvent tekEvent = auditRow[0]
+                def tekEventRevision = auditRow[1]
+                return matchesSearchCriteria(searchValue, tekEvent, tekEventRevision, propertiesToRender)
+            }
+        }
+
         // Total records count (before pagination)
         dataToRender.iTotalRecords = filteredList.size()
 
-
-
-
-
-
+        // Sorting logic
         int sortColumnsCount = params.iSortingCols?.toInteger() ?: 0
 
         if (sortColumnsCount > 0) {
@@ -171,13 +179,14 @@ class DatatablesSourceService implements GrailsApplicationAware {
             }
         }
 
+        // Apply pagination after filtering and sorting
         List paginatedList = filteredList.subList(displayStart, Math.min(displayStart + displayLength, filteredList.size()))
 
+        // Render the data
         paginatedList.each { subList ->
             def tekEvent = subList[0]
             def tekEventRevision = subList[1]
             def data = []
-
 
             propertiesToRender.each { f ->
                 try {
@@ -189,7 +198,6 @@ class DatatablesSourceService implements GrailsApplicationAware {
 
                         // Special handling for the 'currentUser' relationship
                         if (f == 'currentUser' && value) {
-                            // Assuming currentUser is a string or can be cast to a string
                             value = value ?: 'Unknown User'
                         }
 
@@ -214,40 +222,46 @@ class DatatablesSourceService implements GrailsApplicationAware {
             }
             dataToRender.aaData << data
         }
+
         dataToRender.iTotalDisplayRecords = filteredList.size()
         return dataToRender as JSON
     }
+
+
+    boolean matchesSearchCriteria(String searchValue, TekEvent tekEvent, def tekEventRevision, List propertiesToRender) {
+        searchValue = searchValue.toLowerCase()
+
+        // Loop through the properties and check for a match in either tekEvent or tekEventRevision
+        for (String property : propertiesToRender) {
+            def value = ""
+
+            // Check if TekEvent has the property
+            if (tekEvent.hasProperty(property)) {
+                value = tekEvent[property]?.toString()?.toLowerCase() ?: ""
+            }
+            // Check if TekEventRevision has the property
+            else if (tekEventRevision.hasProperty(property)) {
+                if (property == 'currentUser') {
+                    value = tekEventRevision[property]?.toString()?.toLowerCase() ?: ""
+                }
+                // Special handling for 'timestamp' field in TekEventRevision
+                if (property == 'timestamp' && value) {
+                    if (value instanceof Long) {
+                        value = Instant.ofEpochMilli(value)
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate()
+                                .toString()
+                    } else {
+                        value = value.toString()
+                    }
+                }
+            }
+            // Check if the searchValue is contained in the current property value
+            if (value.contains(searchValue)) {
+                return true
+            }
+        }
+        // If no property matched the search criteria, return false
+        return false
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
