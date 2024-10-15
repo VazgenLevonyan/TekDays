@@ -137,36 +137,37 @@ class DatatablesSourceService implements GrailsApplicationAware {
 
 
 
-        if (params.iSortCol_0) {
-            int sortColumnIndex = params.iSortCol_0.toInteger()
-            String sortDirection = params.sSortDir_0 ?: "asc"
 
+
+
+        int sortColumnsCount = params.iSortingCols?.toInteger() ?: 0
+
+        if (sortColumnsCount > 0) {
             filteredList.sort { a, b ->
-                def propertyName = propertiesToRender[sortColumnIndex]
-                def valueA, valueB
+                def comparisonResult = 0
 
-                if (a[0].hasProperty(propertyName)) {
-                    valueA = a[0].getAt(propertyName)
-                } else if (a[1].hasProperty(propertyName)) {
-                    valueA = a[1].getAt(propertyName)
+                for (int i = 0; i < sortColumnsCount; i++) {
+                    int sortColumnIndex = params["iSortCol_$i"].toInteger()
+                    String sortDirection = params["sSortDir_$i"] ?: "asc"
+                    String propertyName = propertiesToRender[sortColumnIndex]
+
+                    def valueA = (a[0].hasProperty(propertyName) ? a[0].getAt(propertyName) : a[1].getAt(propertyName))
+                    def valueB = (b[0].hasProperty(propertyName) ? b[0].getAt(propertyName) : b[1].getAt(propertyName))
+
+                    // Special handling for 'currentUser' relationship
+                    if (propertyName == 'currentUser') {
+                        valueA = valueA?.fullName?.toString() ?: ""
+                        valueB = valueB?.fullName?.toString() ?: ""
+                    }
+
+                    // Determine comparison result based on direction
+                    comparisonResult = (sortDirection == "asc") ? (valueA <=> valueB) : (valueB <=> valueA)
+
+                    // If comparison result is not zero, break out of the loop
+                    if (comparisonResult != 0) break
                 }
 
-                if (b[0].hasProperty(propertyName)) {
-                    valueB = b[0].getAt(propertyName)
-                } else if (b[1].hasProperty(propertyName)) {
-                    valueB = b[1].getAt(propertyName)
-                }
-
-                if (propertyName == 'currentUser') {
-                    valueA = valueA?.fullName?.toString() ?: ""
-                    valueB = valueB?.fullName?.toString() ?: ""
-                }
-
-                if (sortDirection == "asc") {
-                    valueA <=> valueB
-                } else {
-                    valueB <=> valueA
-                }
+                return comparisonResult
             }
         }
 
