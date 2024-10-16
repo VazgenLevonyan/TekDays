@@ -206,7 +206,7 @@ class DatatablesSourceService implements GrailsApplicationAware {
                             if (value instanceof Long) {
                                 value = Instant.ofEpochMilli(value)
                                         .atZone(ZoneId.systemDefault())
-                                        .toLocalDate()
+                                        .toLocalDateTime()
                                         .toString()
                             } else {
                                 value = value.toString()
