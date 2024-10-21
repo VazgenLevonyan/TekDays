@@ -11,6 +11,7 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
+jasper.dir.reports = "/home/sofs15/Desktop/Grails/TekDays/web-app/reports/"
 grails.config.locations = ["classpath:${appName}-config.properties",
                            "classpath:${appName}-config.groovy",
                            "file:${userHome}/.grails/${appName}-config.properties",

@@ -24,7 +24,10 @@
         <li><g:link class="list" controller="dashboard" action="dashboard"
                     id="${tekEventInstance.id}">Event Dashboard</g:link></li>
         <li><g:volunteerButton eventId="${tekEventInstance.id}" /></li>
+
     </ul>
+
+
 </div>
 
 
@@ -220,12 +223,20 @@
     });
 </script>
 
+
+
 <div id="volunteerDialog" title="Volunteer for ${tekEventInstance.name}">
     <g:form name="volunteerForm" action="volunteer">
         <g:hiddenField name="id" value="${tekEventInstance.id}" />
         <p>Welcome to the team! Your help will make a huge difference.</p>
     </g:form>
 </div>
+
+
+
+
+
+
 
 
 </body>
