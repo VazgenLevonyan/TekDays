@@ -1,34 +1,42 @@
 package event
 
-import org.hibernate.envers.query.AuditQuery
+import grails.transaction.Transactional
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.hibernate.envers.AuditReaderFactory
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TekEventController {
 
     def datatablesSourceService
 
+
     def dtList() {
+
         println 1
         [tekEventId: params.id]
     }
 
-    def dataTablesRenderer() {
-        def propertiesToRender = ["id","name","description", "city", "organizer"] //<list of fields to be rendered>
-        def entityName = 'TekEvent'
-        render  datatablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
+    def index(Integer max) {
+
+        def mm = message(code: 'lemon')
+        LOG.info("Info log in EventController --index action")
+        params.max = Math.min(max ?: 10, 100)
+        respond TekEvent.list(params), model: [tekEventInstanceCount: TekEvent.count()]
     }
 
-    def revision(){
-        def propertiesToRender = ["id","name", "description", "city","currentUser","timestamp"]
-        def tekEventId=Long.valueOf(params.id)
+    def dataTablesRenderer() {
+        def propertiesToRender = ["id", "name", "description", "city", "organizer"] //<list of fields to be rendered>
+        def entityName = 'TekEvent'
+        render datatablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
+    }
 
-        def result=datatablesSourceService.getRevisions(tekEventId,propertiesToRender,params)
+    def revision() {
+        def propertiesToRender = ["id", "name", "description", "city", "currentUser", "timestamp"]
+        def tekEventId = Long.valueOf(params.id)
+
+        def result = datatablesSourceService.getRevisions(tekEventId, propertiesToRender, params)
         render result
     }
 
@@ -37,11 +45,6 @@ class TekEventController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        LOG.info("Info log in EventController --index action")
-        params.max = Math.min(max ?: 10, 100)
-        respond TekEvent.list(params), model: [tekEventInstanceCount: TekEvent.count()]
-    }
 
     @Transactional
     def volunteer() {
@@ -152,7 +155,6 @@ class TekEventController {
         tekEvent.organizer = null
 
 
-
         try {
             // Save changes to the TekEvent before deletion
             tekEvent.save(flush: true)
@@ -160,7 +162,7 @@ class TekEventController {
             // Delete the TekEvent
             tekEvent.delete(flush: true)
         }
-        catch (Exception e){
+        catch (Exception e) {
             flash.message = "Error occurred while deleting TekEvent: ${e.message}"
         }
 

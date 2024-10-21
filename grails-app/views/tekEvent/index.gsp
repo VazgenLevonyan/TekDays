@@ -95,18 +95,20 @@
 		</div>
 
 
+	<p><g:message code="lemon" /></p>
+
 
 	<div id="list-tekEvent" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-		<g:jasperReport jasper="">
+%{--		<g:jasperReport jasper="">--}%
 
-		</g:jasperReport>
+%{--		</g:jasperReport>--}%
 
-		<g:jasperReport jasper="test report" format="PDF,XLS" name="test-download" class="form-horizontal">
-		</g:jasperReport>
+%{--		<g:jasperReport jasper="test report" format="PDF,XLS" name="test-download" class="form-horizontal">--}%
+%{--		</g:jasperReport>--}%
 
 			<table>
 			<thead>
