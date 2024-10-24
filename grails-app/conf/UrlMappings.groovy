@@ -14,5 +14,7 @@ class UrlMappings {
             controller = "tekEvent"
             action = "show"
         }
+        
+        "/person/createPersonViaApi"(controller: "person", action: "createPersonViaApi")
 	}
 }
