@@ -103,7 +103,7 @@
 	<div class="homeCell">
 		<h3>Chat with another Tek Users </h3>
 		<span class="buttons" style="margin-left: 71%" >
-			<g:link controller="tekUser" action="chatroom">Go to the chatroom</g:link>
+			<g:link controller="tekEvent" action="chatroom">Go to the chatroom</g:link>
 		</span>
 	</div>
 

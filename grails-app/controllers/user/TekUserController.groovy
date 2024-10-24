@@ -131,6 +131,5 @@ class TekUserController {
         }
     }
 
-    def chatroom(){
-    }
+
 }
