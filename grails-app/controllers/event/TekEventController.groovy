@@ -1,5 +1,6 @@
 package event
 
+import grails.plugin.mail.MailService
 import grails.transaction.Transactional
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -10,6 +11,7 @@ import static org.springframework.http.HttpStatus.*
 class TekEventController {
 
     def datatablesSourceService
+    MailService mailService
 
 
     def dtList() {
@@ -101,6 +103,12 @@ class TekEventController {
 
         tekEventInstance.save flush: true
         taskService.addDefaultTasks(tekEventInstance)
+        mailService.sendMail {
+            to "immayl9798@gmail.com"
+            subject "Test Email"
+            body "This is a test email."
+        }
+
 
         request.withFormat {
             form {

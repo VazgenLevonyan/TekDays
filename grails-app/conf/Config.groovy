@@ -66,6 +66,20 @@ grails {
     }
 }
 
+grails {
+    mail {
+        host = "smtp.gmail.com"
+        port = 587
+        username = "vazgenlevonyan1898@gmail.com"
+        password = "bbnlgdihukdpjkom"
+        props = [
+                "mail.smtp.auth": "true",
+                "mail.smtp.starttls.enable": "true",
+                "mail.smtp.ssl.trust": "smtp.gmail.com",
+                "mail.smtp.ssl.protocols": "TLSv1.2"
+        ]
+    }
+}
 
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration
