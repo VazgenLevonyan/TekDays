@@ -130,4 +130,7 @@ class TekUserController {
             render view: 'login'
         }
     }
+
+    def chatroom(){
+    }
 }

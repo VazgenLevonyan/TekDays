@@ -98,6 +98,15 @@
 	<p><g:message code="lemon" /></p>
 
 
+	<br>
+
+	<div class="homeCell">
+		<h3>Chat with another Tek Users </h3>
+		<span class="buttons" style="margin-left: 71%" >
+			<g:link controller="tekUser" action="chatroom">Go to the chatroom</g:link>
+		</span>
+	</div>
+
 	<div id="list-tekEvent" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">

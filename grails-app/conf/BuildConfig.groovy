@@ -49,10 +49,19 @@ grails.project.dependency.resolution = {
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
-        test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+
+
+
         compile 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
         compile('org.hibernate:hibernate-envers:4.3.11.Final') {
             transitive = false
+        }
+        test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+
+        bundle('javax.websocket:javax.websocket-api:1.1') {
+            // This line is necessary for deployment to Tomcat, since
+            // Tomcat comes with its own version of javax.websocket-api.
+            export = false
         }
     }
 
