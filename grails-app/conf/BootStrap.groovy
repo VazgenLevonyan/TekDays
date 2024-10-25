@@ -2,10 +2,14 @@ import event.TekEvent
 import user.TekUser
 import sponsor.TekSponsorship
 import sponsor.TekSponsor
+import org.springframework.context.i18n.LocaleContextHolder
 
 class BootStrap {
 
     def init = { servletContext ->
+
+
+
 
 
 //        def eventOrganizer = new TekUser(fullName: 'John Doe',

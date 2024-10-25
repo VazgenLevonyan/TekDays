@@ -47,15 +47,6 @@
 
 </div>
 
-%{--<div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'startDate', 'error')} required">--}%
-%{--	<label for="startDate">--}%
-%{--		<g:message code="tekEvent.startDate.label" default="Start Date" />--}%
-%{--		<span class="required-indicator">*</span>--}%
-%{--	</label>--}%
-%{--	<g:datePicker name="startDate" precision="day"  value="${tekEventInstance?.startDate}"  />--}%
-
-%{--</div>--}%
-
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance,
 		field: 'startDate',
 		'error')} required">
