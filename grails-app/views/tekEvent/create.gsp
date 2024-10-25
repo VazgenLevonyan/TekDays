@@ -4,25 +4,6 @@
 	<meta name="layout" content="main">
 	<g:set var="entityName" value="${message(code: 'tekEvent.label', default: 'TekEvent')}" />
 	<title><g:message code="default.create.label" args="[entityName]" /></title>
-	<g:javascript library="jquery" />
-	<script>
-		function createPerson() {
-			$.ajax({
-				url: "${createLink(controller: 'person', action: 'createPersonViaApi')}",
-				type: 'POST',
-				contentType: 'application/json',
-				success: function(response) {
-					// Open the response in a new tab
-					var newTab = window.open();
-					newTab.document.write('<pre>' + JSON.stringify(response, null, 2) + '</pre>');
-					newTab.document.title = 'Person Data';
-				},
-				error: function() {
-					alert('Error creating person.');
-				}
-			});
-		}
-	</script>
 </head>
 <body>
 <a href="#create-tekEvent" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -34,9 +15,6 @@
 </div>
 <div id="create-tekEvent" class="content scaffold-create" role="main">
 	<h1><g:message code="default.create.label" args="[entityName]" /></h1>
-
-	<!-- Button to call the API method -->
-	<button onclick="createPerson()">Create Person</button>
 
 	<g:if test="${flash.message}">
 		<div class="message" role="status">${flash.message}</div>

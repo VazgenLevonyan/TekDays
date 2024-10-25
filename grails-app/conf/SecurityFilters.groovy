@@ -1,20 +1,26 @@
 class SecurityFilters {
 
     def filters = {
-        //esi simple filtera
         doLogin(controller: '*', action: '*') {
-            //esi interceptora
             before = {
-                if (!controllerName)
-                    return true
-                def allowedActions = ['show', 'index', 'login', 'validate']
+                if (!controllerName) return true
 
-                if (!session.user && !allowedActions.contains(actionName)) {
+                def allowedActions = ['show', 'index', 'login', 'validate']
+                def openApiEndpoints = [
+                        [controller: 'person'],
+                        //[controller: 'person', action: 'show'],
+                        //[controller: 'person', action: 'update'],
+                        //[controller: 'person', action: 'delete']
+                ]
+
+                def isOpenEndpoint = openApiEndpoints.any { it.controller == controllerName}  //&& it.action == actionName
+
+                if (!session.user && !allowedActions.contains(actionName) && !isOpenEndpoint) {
                     redirect(controller: 'tekUser', action: 'login',
-                            params: ['cName': controllerName,
-                                     'aName': actionName])
+                            params: ['cName': controllerName, 'aName': actionName])
                     return false
                 }
+                return true
             }
         }
     }
